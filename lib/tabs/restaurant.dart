@@ -64,9 +64,12 @@ class ItemList extends StatelessWidget {
                 leading: ConstrainedBox(
                   constraints: BoxConstraints(
                       minHeight: 44, minWidth: 44, maxHeight: 64, maxWidth: 64),
-                  child: Image.asset(
-                    "assets/images/logo.jpeg",
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: list[i],
+                    child: Image.asset(
+                      "assets/images/logo.jpeg",
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 subtitle: Text("Level : ${list[i]['res_level']}"),

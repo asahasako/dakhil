@@ -1,13 +1,16 @@
 import 'package:dakhil/tabs/restaurant.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'editData.dart';
 import 'package:http/http.dart' as http;
 
 class Details extends StatefulWidget {
-  List list;
-  int index;
+  final List list;
+  final int index;
+
   Details({this.index, this.list});
+
   @override
   _DetailsState createState() => _DetailsState();
 }
@@ -54,61 +57,77 @@ class _DetailsState extends State<Details> {
       appBar: AppBar(
         title: Text("${widget.list[widget.index]['res_name']}"),
       ),
-      body: Container(
-        height: 250.0,
-        padding: EdgeInsets.all(20.0),
-        child: Card(
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 30.0),
-                ),
-                Text(
-                  widget.list[widget.index]['res_name'],
-                  style: TextStyle(fontSize: 20.0),
-                ),
-                Text(
-                  "Type of Cuisine: ${widget.list[widget.index]['res_cuisine']}",
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                Text(
-                  "Floor: ${widget.list[widget.index]['res_level']}",
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                Text(
-                  "Shop Number: ${widget.list[widget.index]['res_shopnumber']}",
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 30.0),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverFillRemaining(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    RaisedButton(
-                      onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => EditData(
-                            list: widget.list,
-                            index: widget.index,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Container(
+                          child: Hero(
+                            tag: widget.list[widget.index],
+                            child: Image.asset(
+                              "assets/images/logo.jpeg",
+                              height: 150.0,
+                              width: 150.0,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      child: Text("Edit"),
-                      color: Colors.green,
+                        Flexible(
+                          child: Text(
+                            widget.list[widget.index]['res_name'],
+                            style: TextStyle(
+                              fontSize: 30.0,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    RaisedButton(
-                      onPressed: () => confirm(),
-                      child: Text("Delete"),
-                      color: Colors.red,
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "Address: Level ${widget.list[widget.index]['res_level']}, ${widget.list[widget.index]['res_shopnumber']}",
+                          style: TextStyle(
+                              fontSize: 18.0, color: Colors.grey[700]),
+                        ),
+                      ],
+                    ),
+                    widget.list[widget.index]['res_phone'] == ''
+                        ? Text(
+                            "Phone number is not available for this shop",
+                            style: TextStyle(
+                                fontSize: 18.0, color: Colors.red[400]),
+                          )
+                        : Text(
+                            "Phone number: ${widget.list[widget.index]['res_phone']}",
+                            style: TextStyle(fontSize: 18.0),
+                          ),
+                    Text(
+                      "Type of cuisine: ${widget.list[widget.index]['res_cuisine']}",
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    Text(
+                      "Description: ${widget.list[widget.index]['res_details']}",
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
                     ),
                   ],
-                )
-              ],
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
