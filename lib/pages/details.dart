@@ -68,17 +68,30 @@ class _DetailsState extends State<Details> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Container(
                           child: Hero(
                             tag: widget.list[widget.index],
-                            child: Image.asset(
-                              "assets/images/logo.jpeg",
-                              height: 150.0,
-                              width: 150.0,
-                              fit: BoxFit.cover,
-                            ),
+                            child: widget.list[widget.index]['res_image'] == ''
+                                ? Flexible(
+                                    child: Image.asset(
+                                      "assets/images/logo.jpeg",
+                                      height: 120.0,
+                                      width: 150.0,
+                                      fit: BoxFit.contain,
+                                    ),
+                                  )
+                                : Flexible(
+                                    child: Image.network(
+                                      "http://10.0.2.2/dakhil/images/" +
+                                          widget.list[widget.index]
+                                              ['res_image'],
+                                      height: 120.0,
+                                      width: 150.0,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                           ),
                         ),
                         Flexible(

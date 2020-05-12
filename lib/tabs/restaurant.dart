@@ -66,10 +66,16 @@ class ItemList extends StatelessWidget {
                       minHeight: 44, minWidth: 44, maxHeight: 64, maxWidth: 64),
                   child: Hero(
                     tag: list[i],
-                    child: Image.asset(
-                      "assets/images/logo.jpeg",
-                      fit: BoxFit.cover,
-                    ),
+                    child: list[i]['res_image'] == ''
+                        ? Image.asset(
+                            "assets/images/logo.jpeg",
+                            fit: BoxFit.contain,
+                          )
+                        : Image.network(
+                            "http://10.0.2.2/dakhil/images/" +
+                                list[i]['res_image'],
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
                 subtitle: Text("Level : ${list[i]['res_level']}"),
