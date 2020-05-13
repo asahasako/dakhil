@@ -13,7 +13,17 @@ class _ManageState extends State<Manage> {
         title: Text("Manage order"),
       ),
       body: Container(
-        child: Text("this is manage order tab"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Center(
+              child: Text(
+                "This page is unavailable",
+                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
